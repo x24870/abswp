@@ -1,10 +1,5 @@
-import collatz_sequence as cs
+tableData = [['apples', 'oranges', 'cherries', 'banana'],
+             ['Alice', 'Bob', 'Carol', 'David'],
+             ['dogs', 'cats', 'moose', 'goose']]
 
-def spam():
-    """This is a multiline comment to help
-    explain what the spam() function does."""
-    print('Hello!')
-
-#cs.collatz_sequence()
-
-spam()
+print(range(tableData[0]))

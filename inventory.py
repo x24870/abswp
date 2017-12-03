@@ -1,7 +1,7 @@
 stuff = {'rope': 1, 'torch': 6, 'gold coin': 42, 'dagger': 1, 'arrow': 12}
 
 def print_inventory():
-    print('Item          amount')
+    print('Items'.center(17, '='))
     for k, v in stuff.items():
         print(k.ljust(14, '.') + str(v))
 
