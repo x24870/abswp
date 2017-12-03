@@ -6,10 +6,7 @@ colwidth = [0] * len(tableData)
 
 #find maximun width of each colume
 for lst in range(len(tableData)):
-    width = 0
-    for item in tableData[lst]:
-        if len(item) > width: width = len(item)
-    colwidth[lst] = width
+    colwidth[lst] = len(max(tableData[lst], key=len))
 
 print(colwidth)
 
