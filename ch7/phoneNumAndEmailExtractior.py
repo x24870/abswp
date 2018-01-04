@@ -1,33 +1,29 @@
 import re
 import pyperclip
 
-#inputStr = pyperclip.paste()
-#print('input str is : \n', inputStr)
 
-
+#Taiwan phone number format
 phoneNumRegex =  re.compile(r'''(
-	(\d{3}|\(\d{3}\))? #area code
+	(\d{2,3}|\(\d{3}\))? #area code
 	(-|\s)? #separator
-	(\d{6}) #phone number
+	(\d{6,7}) #phone number
 )''', re.VERBOSE)
 emailRegex = re.compile(r'[\w]+@[\w.]+')
 
-
-phoneNum = phoneNumRegex.findall('Cell: 035-456789 Work: (888) 459881')
-email = emailRegex.findall('x24870@gmail.com and 1100105338@gm.kuas.edu.tw')
-
-print(phoneNum)
-print(email)
+text = '''
+Cell: 035-456789 Work: (888) 459881, another num:133-789654, this is a nnum: (444)-444444, Taiwan num: 12-3456789
+x2487e2515s0@gmail.com and g04473@gm.ccu.edu.tw
+'''
 
 phoneNumOutput = ''
-for item in phoneNum:
-    phoneNumOutput = phoneNumOutput + item[0] + '\n'
+for item in phoneNumRegex.findall(text):
+    phoneNumOutput = phoneNumOutput + item[1].strip('()') + '-' +  item[3] + '\n'
     
 emailOutput = ''
-for item in email:
+for item in emailRegex.findall(text):
     emailOutput = emailOutput + item + '\n'
     
-print("Phone Numbers: \n", phoneNumOutput, "\n Emails: \n", emailOutput)
+print("Phone Numbers: \n", phoneNumOutput, "\nEmails: \n", emailOutput)
 
 pyperclip.copy(phoneNumOutput + emailOutput)
 
