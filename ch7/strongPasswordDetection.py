@@ -29,4 +29,5 @@ def strongPasswordDetection():
         print('Strong password!')
         return 1
 
-print(strongPasswordDetection())
+if __name__ == '__main__':
+    print(strongPasswordDetection())
