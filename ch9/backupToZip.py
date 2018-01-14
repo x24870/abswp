@@ -21,10 +21,8 @@ def backupToZip(folder):
     
     # Walk through the folder
     for foldername, subfolders, filenames in os.walk(absfolder):
-        #print('\nAdding files in %s' % foldername)
         backupZip.write(foldername)
         
-        #print('Contented filenames : %s' % filenames)
         for filename in filenames:
             # Don't add zip file
             newBase = os.path.basename(absfolder) + '_'
