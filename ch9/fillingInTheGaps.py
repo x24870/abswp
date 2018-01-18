@@ -20,25 +20,35 @@ def fillupGaps(folder, fillup = 'rename'):
             (.*\.txt$) #end with '.txt'
     )''', re.VERBOSE)
     
+    #get matched filenames
+    matchedlist = []
+    for filename in os.listdir(folder):
+        matched = prefixReg.findall(filename)
+        if matched: matchedlist.append(matched[0]) 
+    matchedlist = sorted(matchedlist, key=lambda matchedlist:int(matchedlist[2])) 
+    print(matchedlist)                   
+
     if fillup == 'rename':
         lastNum = 0;
         pstNum = 0;
         
-        for filename in os.listdir(folder):
-            #print(filename)
-            result = prefixReg.findall(filename)
-            #print(result)
-            
-            if result:
-                pstNum = result[0][2]
-                pass
-                if pstNum != lastNum + 1:
-                    newName = result[0][1] + str(lastNum+1) + result[0][3]
-                    print(result[0][0] + ' modify to : ' + newName)
-                    #shutil.move(result[0][0], newName)
-                lastNum += 1
+        for matched in matchedlist:
+            pstNum = int(matched[2])
+            if pstNum != lastNum + 1:
+                newName = matched[1] + str(lastNum+1) + matched[3]
+                print(matched[0] + ' modify to : ' + newName)
+                #shutil.move(matched[0], newName)
+            lastNum += 1
     elif fillup == 'add':
-        pass
+        presentNum = 1
+        
+        for matched in matchedlist:
+            while(int(matched[2]) > presentNum):
+                newFilename = matched[1] + str(presentNum) + matched[3]
+                print('Add new file : ' + newFilename)
+                #with open(newFilename, 'w') as file: pass
+                presentNum += 1
+            presentNum += 1
     else:
         print('Second parameter is invalid.')
         return
