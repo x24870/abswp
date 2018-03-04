@@ -3,6 +3,9 @@
 #N: The row number to be insert
 #M: How many blank rows insert to specified row number
 
+#Better solution refers to: https://github.com/swchoi0102/automate-the-boring-stuff/blob/master/chapter12/blank_row_inserter.py
+#use enumerate to iterate index object is much more wisely
+
 import sys, openpyxl
 
 def blankRowInserter(n, m, filename):
