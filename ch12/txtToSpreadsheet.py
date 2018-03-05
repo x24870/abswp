@@ -34,9 +34,3 @@ if __name__ == '__main__':
                 exit()
         
         txt2Spreadsheet(filenameList)
-                
-        
-        
-
-#filenameList = ['test2.txt']
-#txt2Spreadsheet(filenameList)
