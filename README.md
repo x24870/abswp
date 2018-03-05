@@ -1,1 +1,3 @@
-This is a practice project refers to "Automate boring stuff with python".
+This repository contain practice project from "Automate boring stuff with python".
+
+Refers to: https://automatetheboringstuff.com
