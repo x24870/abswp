@@ -1,3 +1,5 @@
+# Search the keyword and open first 5 result
+
 import requests, webbrowser, sys, bs4
 
 def googleSearch(keyword):

@@ -1,6 +1,7 @@
 import PyPDF2, os
 
 PASSWORD = 'password'
+#Encrypt all pdf files in current folder and subfolder
 
 #walk trough specified folder and subfolder to encrypted pdf files
 for folderName, subfolders, filenames in os.walk(os.path.abspath('.')):
