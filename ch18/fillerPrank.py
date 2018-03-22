@@ -5,8 +5,11 @@ import pyautogui, random, time
 
 pyautogui.PAUSE = 0.1
 
+INTERVAL = 3
+
 SPEAKER = ['Tom Cruise', 'Bradley Pitt', 'Jennifer Lawrence', 'Donny Yen', 'Bruce Lee'
-           'Peter Jackson', 'Elon Musjk', 'LeBron James', 'May J Lee', 'Emily Blunt']
+           'Peter Jackson', 'Elon Musjk', 'LeBron James', 'May J Lee', 'Emily Blunt'
+           'Lily Colins', 'Robert John Downey Jr.', 'Johnny Depp', 'Jolin Tsai']
 
 def generateData():
     data = {}
@@ -18,15 +21,25 @@ def generateData():
     random.shuffle(adPrefer)
     data.setdefault('adPrefer', adPrefer)
     #Q3* if know == 2, skip to basic info
-    data.setdefault('know', random.randint(1, 2))
+    #data.setdefault('know', random.randint(1, 2))
     #increase the chance of know this game
-    if data['know'] == 2: data.setdefault('know', random.randint(1, 2))
+    data.setdefault('know', random.randint(1, 3))
+    print('know %d' % data['know'])
+    if data['know'] > 1:
+        data['know'] = 1
+    else:
+        data['know'] = 2
     
     if data['know'] == 1:
         #Q4 if downloade == 2, skip to Q11
-        data.setdefault('downloaded', random.randint(1, 2))
+        #data.setdefault('downloaded', random.randint(1, 2))
         #increase the chance of downloaded this game
-        if data['downloaded'] == 2: data.setdefault('know', random.randint(1, 2))
+        data.setdefault('downloaded', random.randint(1, 3))
+        print('know %d' % data['downloaded'])
+        if data['downloaded'] > 1:
+            data['downloaded'] = 1
+        else:
+            data['downloaded'] = 2
         
         if data['downloaded'] == 1:
             #Q5
@@ -78,7 +91,7 @@ def checkList(lst):
             pyautogui.press(' ')
 
 def filler(data):
-    pyautogui.click(170, 200)
+    pyautogui.click(19, 134)
     
     #Q1*
     radioBtn(data['spendTime'])
@@ -118,7 +131,7 @@ def filler(data):
     pyautogui.press('\t')
     pyautogui.press('enter')
     
-    time.sleep(2)
+    time.sleep(INTERVAL)
     
     #Q1
     radioBtn(data['gender'])
@@ -135,11 +148,14 @@ def filler(data):
     #end page
     pyautogui.press('\t')
     pyautogui.press('enter')
-    time.sleep(2)
+    time.sleep(INTERVAL)
     
 if __name__ == '__main__':
-    for i in range(30):
+    count = 0
+    for i in range(1000):
         data = generateData()
-        print(data)
         print(len(data))
+        if len(data) == 15: count += 1
+        print('Iteration: %d' % i)
         filler(data)
+    print('Count : %d' % count)
