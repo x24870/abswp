@@ -39,7 +39,7 @@ def search_order(frame):
 
     plt.show()
     
-    print(type(result))
+    print('type:',type(result))
     print(len(result[0]))
 
 #identify food
