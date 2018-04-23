@@ -48,37 +48,38 @@ class Waiter():
         
         for key, pattern in self.patterns.items():
             w, h = pattern.shape
-            threshold = 0.7
+            threshold = 0.85
             res = cv2.matchTemplate(frame, pattern, cv2.TM_CCOEFF_NORMED)
             
             loc = np.where(res > threshold)
-            print(loc)
             for pt in zip(*loc):
-                cv2.rectangle(frame, pt, (pt[0]+w, pt[1]+h), 100, 2)
+                print('pt', pt, res[pt[0]][pt[1]])
+                cv2.rectangle(frame, (pt[1], pt[0]), (pt[1]+w, pt[0]+h), 100, 2)
                 
-            cv2.imshow('pat', pattern)
             cv2.imshow('capture', frame)
             cv2.waitKey(0)
             cv2.destroyAllWindows()
             
-#        result = cv2.matchTemplate(frame, pattern, cv2.TM_CCOEFF_NORMED)
-#        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-#        top_left = max_loc
-#        bottom_right = (top_left[0]+pattern.shape[0], top_left[1]+pattern.shape[1])
-#        
-#        cv2.rectangle(frame, top_left, bottom_right, 0, 2)
-#        plt.subplot(121),plt.imshow(result,cmap = 'gray')
-#        plt.title('Matching Result'), plt.xticks([]), plt.yticks([])
-#        plt.subplot(122),plt.imshow(frame,cmap = 'gray')
-#        plt.title('Detected Point'), plt.xticks([]), plt.yticks([])
-#    
-#        plt.show()
-#        
-#        print('type:', type(result))
-#        print(len(result[0]))
+    def search_order2(self):
+        frame = self.get_frame()
+        pattern = self.patterns['onigiri']
+        
+        result = cv2.matchTemplate(frame, pattern, cv2.TM_CCOEFF_NORMED)
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+        top_left = max_loc
+        bottom_right = (top_left[0]+pattern.shape[0], top_left[1]+pattern.shape[1])
+        
+        cv2.rectangle(frame, top_left, bottom_right, 0, 2)
+        #plt.subplot(121),plt.imshow(result,cmap = 'gray')
+        #plt.title('Matching Result'), plt.xticks([]), plt.yticks([])
+        #plt.subplot(122),plt.imshow(frame,cmap = 'gray')
+        #plt.title('Detected Point'), plt.xticks([]), plt.yticks([])
+    
+        plt.show()
         
 if __name__ == '__main__':
     waiter = Waiter()
     print(waiter)
     print(*waiter.seats)
     waiter.search_order()
+    waiter.search_order2()
