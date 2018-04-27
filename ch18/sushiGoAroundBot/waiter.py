@@ -9,11 +9,13 @@ from PIL import ImageGrab
 #FOOD_PAT_NAMES = ['onigiri.PNG', 'gunkanMaki.png', 'californiaRoll.png',
 #                  'salmonRoll.png']
 FOOD_PAT_NAMES = ['onigiri.PNG']
+SEAT_NUM = 6
 
 class Seat():
     def __init__(self):
         self.seat = False
         self.order = ''
+        self.sent_order = False
         
     def __str__(self):
         return str(self.seat)
@@ -23,7 +25,7 @@ class Waiter():
         self.patterns = self.load_menu()
         
         self.seats = []        
-        for i in range(6): self.seats.append(Seat())
+        for i in range(SEAT_NUM): self.seats.append(Seat())
         
     def __str__(self):
         #return str([*self.patterns])
@@ -60,6 +62,8 @@ class Waiter():
             cv2.waitKey(0)
             cv2.destroyAllWindows()
             
+            #TODO add order to seat class
+            
     def search_order2(self):
         frame = self.get_frame()
         pattern = self.patterns['onigiri']
@@ -77,9 +81,21 @@ class Waiter():
     
         plt.show()
         
+    def send_order(self):
+        order_lst = []
+        for seat in self.seats:
+            if seat.sent_order == False:
+                order_lst.append(seat.order)
+                
+        return order_lst
+            
+        
 if __name__ == '__main__':
     waiter = Waiter()
-    print(waiter)
-    print(*waiter.seats)
-    waiter.search_order()
-    waiter.search_order2()
+#    print(waiter)
+#    print(*waiter.seats)
+#    waiter.search_order()
+    #waiter.search_order2()
+    
+    waiter.seats[0].order = FOOD_PAT_NAMES[0]
+    print(waiter.send_order())
